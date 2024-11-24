@@ -1,0 +1,128 @@
+@{
+    ViewData["Title"] = "Grant Review - Second Harvest Northland Grants Management System";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Grant Review</h1>
+        <nav>
+            <ul>
+                <li><a href="@Url.Action("Index", "Dashboard")">Dashboard</a></li>
+                <li><a href="@Url.Action("GrantApplications", "Grants")">Grant Applications</a></li>
+                <li><a href="@Url.Action("GrantManagement", "Grants")">Grant Management</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="submitted-applications">
+            <h2>Submitted Applications</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Application Title</th>
+                        <th>Applicant</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var application in Model.Applications)
+                    {
+                        <tr>
+                            <td>@application.Title</td>
+                            <td>@application.Applicant</td>
+                            <td>@application.Status</td>
+                            <td><a href="@Url.Action("Details", "Applications", new { id = application.Id })" class="view-details">View Details</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </section>
+
+        <section id="review-details">
+            <h2>Review Details</h2>
+            <form method="post" asp-action="SubmitReview" asp-controller="Applications">
+                <div class="form-group">
+                    <label for="notes">Reviewer’s Notes:</label>
+                    <textarea id="notes" name="Notes" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="feasibility">Feasibility:</label>
+                    <select id="feasibility" name="Feasibility" required>
+                        <option value="1">1</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="impact">Impact:</label>
+                    <select id="impact" name="Impact" required>
+                        <option value="1">1</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="budget">Budget:</label>
+                    <select id="budget" name="Budget" required>
+                        <option value="1">1</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+                <button type="submit">Approve</button>
+                <button type="button" onclick="requestRevisions()">Request Revisions</button>
+                <button type="button" onclick="rejectApplication()">Reject</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Second Harvest Northland</p>
+    </footer>
+
+    <script>
+        async function fetchApplications() {
+            try {
+                const response = await fetch('@Url.Action("GetApplications", "Applications")');
+                const applications = await response.json();
+                const applicationTableBody = document.querySelector('#submitted-applications tbody');
+
+                applications.forEach(application => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${application.title}</td>
+                        <td>${application.applicant}</td>
+                        <td>${application.status}</td>
+                        <td><a href="#" data-id="${application.id}" class="view-details">View Details</a></td>
+                    `;
+                    applicationTableBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Failed to fetch applications:', error);
+                alert('Failed to load applications. Please try again later.');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', fetchApplications);
+
+        // Placeholder functions for button actions
+        function requestRevisions() {
+            alert('Requesting revisions...'); // Implement logic
+        }
+
+        function rejectApplication() {
+            alert('Rejecting application...'); // Implement logic
+        }
+    </script>
+
+</body>
+</html>

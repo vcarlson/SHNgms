@@ -1,0 +1,107 @@
+@{
+    ViewData["Title"] = "Grant Management - Second Harvest Northland Grants Management System";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Grant Management</h1>
+        <nav>
+            <ul>
+                <li><a href="@Url.Action("Index", "Dashboard")">Dashboard</a></li>
+                <li><a href="@Url.Action("GrantApplications", "Grants")">Grant Applications</a></li>
+                <li><a href="@Url.Action("GrantReview", "Grants")">Grant Review</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="grant-overview">
+            <h2>Grant Progress Overview</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Grant Title</th>
+                        <th>Progress</th>
+                        <th>Budget Spent</th>
+                        <th>Upcoming Milestones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var grant in Model.Grants)
+                    {
+                        <tr>
+                            <td>@grant.Title</td>
+                            <td>@grant.Progress% Complete</td>
+                            <td>@grant.BudgetSpent.ToString("C")</td>
+                            <td>@string.Join(", ", grant.UpcomingMilestones)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </section>
+
+        <section id="milestones">
+            <h2>Timeline & Milestones</h2>
+            <!-- Placeholder for Gantt chart or milestone timeline -->
+            <div class="milestones-chart"></div>
+        </section>
+
+        <section id="documents">
+            <h2>Documents & Reports</h2>
+            <ul>
+                @foreach (var document in Model.Documents)
+                {
+                    <li><a href="@document.Url" target="_blank">@document.Name - @document.Date.ToString("MM/dd/yyyy")</a></li>
+                }
+            </ul>
+        </section>
+
+        <section id="communication-log">
+            <h2>Communication Log</h2>
+            <ul class="communication-log">
+                @foreach (var log in Model.Communications)
+                {
+                    <li><strong>@log.Date.ToString("MM/dd/yyyy"):</strong> @log.Message</li>
+                }
+            </ul>
+            <form id="communication-form" method="post" asp-action="LogCommunication" asp-controller="Grants">
+                <input type="date" id="communication-date" name="Date" required>
+                <input type="text" id="communication-message" name="Message" placeholder="Enter communication details" required>
+                <button type="submit">Add Communication</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Second Harvest Northland</p>
+    </footer>
+
+    <script>
+        document.getElementById('communication-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const date = document.getElementById('communication-date').value;
+            const message = document.getElementById('communication-message').value;
+
+            const logItem = document.createElement('li');
+            logItem.innerHTML = `<strong>${date}:</strong> ${message}`;
+            document.querySelector('.communication-log').appendChild(logItem);
+
+            // Optionally, you can also send this data to your backend here
+            alert('Communication logged successfully!');
+            event.target.reset(); // Clear the form
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,130 @@
+@{
+    ViewData["Title"] = "Reporting & Analytics - Second Harvest Northland Grants Management System";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/style.css">
+    <script>
+        async function fetchReports() {
+            try {
+                const response = await fetch('@Url.Action("GetReports", "Reports")');
+                const reports = await response.json();
+
+                const reportList = document.getElementById('grant-performance').querySelector('ul');
+                reportList.innerHTML = ''; // Clear existing reports
+
+                reports.forEach(report => {
+                    const listItem = document.createElement('li');
+                    listItem.innerHTML = `<a href="${report.link}">${report.title}</a>`;
+                    reportList.appendChild(listItem);
+                });
+            } catch (error) {
+                console.error('Error fetching reports:', error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', fetchReports);
+
+        document.querySelector('#custom-reports form').addEventListener('submit', async (event) => {
+            event.preventDefault(); // Prevent default form submission
+
+            const reportType = document.getElementById('report-type').value;
+            const startDate = document.getElementById('date-range-start').value;
+            const endDate = document.getElementById('date-range-end').value;
+
+            const reportRequest = {
+                type: reportType,
+                startDate: startDate,
+                endDate: endDate
+            };
+
+            try {
+                const response = await fetch('@Url.Action("GenerateReport", "Reports")', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(reportRequest),
+                });
+
+                if (response.ok) {
+                    const report = await response.json();
+                    alert(`Report generated: ${report.link}`);
+                } else {
+                    alert('Failed to generate report. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error generating report:', error);
+            }
+        });
+
+        document.getElementById('data-export').addEventListener('click', (event) => {
+            if (event.target.textContent === 'Export to PDF') {
+                window.location.href = '@Url.Action("Export", "Reports", new { format = "pdf" })';
+            } else if (event.target.textContent === 'Export to Excel') {
+                window.location.href = '@Url.Action("Export", "Reports", new { format = "excel" })';
+            }
+        });
+    </script>
+</head>
+<body>
+
+    <header>
+        <h1>Reporting & Analytics</h1>
+        <nav>
+            <ul>
+                <li><a href="@Url.Action("Index", "Dashboard")">Dashboard</a></li>
+                <li><a href="@Url.Action("Index", "GrantManagement")">Grant Management</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="grant-performance">
+            <h2>Grant Performance Reports</h2>
+            <ul>
+                @foreach (var report in Model.Reports)
+                {
+                    <li><a href="@report.Link">@report.Title</a></li>
+                }
+            </ul>
+        </section>
+
+        <section id="custom-reports">
+            <h2>Create Custom Reports</h2>
+            <form>
+                <div class="form-group">
+                    <label for="report-type">Report Type:</label>
+                    <select id="report-type">
+                        <option value="financial">Financial</option>
+                        <option value="impact">Impact</option>
+                        <option value="timeline">Timeline</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="date-range">Date Range:</label>
+                    <input type="date" id="date-range-start"> to <input type="date" id="date-range-end">
+                </div>
+                <button type="submit">Generate Report</button>
+            </form>
+        </section>
+
+        <section id="data-export">
+            <h2>Data Export Tools</h2>
+            <button>Export to PDF</button>
+            <button>Export to Excel</button>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Second Harvest Northland</p>
+    </footer>
+
+</body>
+</html>

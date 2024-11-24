@@ -1,0 +1,40 @@
+@{
+    Layout = null;  // Only if this is the base layout for the application. Otherwise, remove this line if used in a view.
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - SHNgms</title>
+    <link rel="stylesheet" href="~/css/style.css" />
+</head>
+<body>
+    <header>
+        <h1>Second Harvest Northland Grants Management System</h1>
+        <nav>
+            <ul>
+                <!-- Updated Dashboard Link to ApplicationsController -->
+                <li><a href="@Url.Action("GetDashboardData", "Applications")">Dashboard</a></li>
+
+                <!-- Link to other sections -->
+                <li><a href="@Url.Action("Index", "Applications")">Applications</a></li>
+                <li><a href="@Url.Action("Index", "Reviews")">Reviews</a></li>
+                <li><a href="@Url.Action("Index", "Users")">Users</a></li>
+                <!-- Add other navigation links as needed -->
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        @RenderBody()  <!-- This renders the view content -->
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Second Harvest Northland</p>
+    </footer>
+
+    <script src="~/js/main.js"></script>  <!-- Add any other scripts here -->
+</body>
+</html>

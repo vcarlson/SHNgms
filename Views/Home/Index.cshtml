@@ -1,0 +1,123 @@
+@{
+    ViewData["Title"] = "Dashboard - Second Harvest Northland Grants Management System";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <header>
+        <h1>Dashboard</h1>
+        <nav>
+            <ul>
+                <li><a href="@Url.Action("Index", "GrantApplications")">Grant Applications</a></li>
+                <li><a href="@Url.Action("Index", "GrantReview")">Grant Review</a></li>
+                <li><a href="@Url.Action("Index", "GrantManagement")">Grant Management</a></li>
+                <li><a href="@Url.Action("Index", "FinancialManagement")">Financial Management</a></li>
+                <li><a href="@Url.Action("Index", "ReportingAnalytics")">Reporting & Analytics</a></li>
+                <li><a href="@Url.Action("Index", "UserManagement")">User Management</a></li>
+                <li><a href="@Url.Action("Index", "NotificationsAlerts")">Notifications & Alerts</a></li>
+                <li><a href="@Url.Action("Index", "SystemSettings")">System Settings</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="grant-summary">
+            <h2>Grant Summary</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Grant Title</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Upcoming Deadlines</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var grant in Model.Grants)
+                    {
+                        <tr>
+                            <td>@grant.Title</td>
+                            <td>@grant.Amount</td>
+                            <td>@grant.Status</td>
+                            <td>@grant.Deadline</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </section>
+
+        <section id="key-indicators">
+            <h2>Key Tracking Indicators</h2>
+            <p><strong>Active Grants:</strong> @Model.KeyIndicators.ActiveGrants</p>
+            <p><strong>Total Funds Allocated:</strong> $@Model.KeyIndicators.TotalFundsAllocated</p>
+            <p><strong>Total Funds Spent:</strong> $@Model.KeyIndicators.TotalFundsSpent</p>
+            <p><strong>Upcoming Deadlines:</strong> @Model.KeyIndicators.UpcomingDeadlines</p>
+        </section>
+
+        <section id="notifications">
+            <h2>Notifications/Alerts</h2>
+            <p>You have @Model.Notifications.UpcomingDeadlines upcoming deadlines and @Model.Notifications.PendingReviews grants pending review.</p>
+        </section>
+
+        <section id="graphs">
+            <h2>Fund Distribution & Spending Trends</h2>
+            <div class="chart" id="fund-distribution-chart" style="width: 100%; height: 300px;"></div>
+            <div class="chart" id="spending-trends-chart" style="width: 100%; height: 300px;"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Second Harvest Northland</p>
+    </footer>
+
+    <script>
+        function renderCharts(data) {
+            const ctx1 = document.getElementById('fund-distribution-chart').getContext('2d');
+            const ctx2 = document.getElementById('spending-trends-chart').getContext('2d');
+
+            // Example of fund distribution chart
+            new Chart(ctx1, {
+                type: 'pie',
+                data: {
+                    labels: data.fundDistribution.labels,
+                    datasets: [{
+                        data: data.fundDistribution.values,
+                        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+                    }]
+                }
+            });
+
+            // Example of spending trends chart
+            new Chart(ctx2, {
+                type: 'line',
+                data: {
+                    labels: data.spendingTrends.labels,
+                    datasets: [{
+                        label: 'Funds Spent',
+                        data: data.spendingTrends.values,
+                        borderColor: '#36A2EB',
+                        fill: false
+                    }]
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const data = @Html.Raw(Json.Serialize(Model.Charts)); // Passing the model data to JS
+
+            renderCharts(data);
+        });
+    </script>
+
+</body>
+</html>

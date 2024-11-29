@@ -1,19 +1,15 @@
-@{
-    ViewData["Title"] = "Reporting & Analytics - Second Harvest Northland Grants Management System";
-}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>@ViewData["Title"]</title>
-    <link rel="stylesheet" href="~/css/style.css">
+    <title>Reporting & Analytics - Second Harvest Northland Grants Management System</title>
+    <link rel="stylesheet" href="style.css">
     <script>
         async function fetchReports() {
             try {
-                const response = await fetch('@Url.Action("GetReports", "Reports")');
+                const response = await fetch('/Reports/GetReports');
                 const reports = await response.json();
 
                 const reportList = document.getElementById('grant-performance').querySelector('ul');
@@ -45,7 +41,7 @@
             };
 
             try {
-                const response = await fetch('@Url.Action("GenerateReport", "Reports")', {
+                const response = await fetch('/Reports/GenerateReport', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -66,9 +62,9 @@
 
         document.getElementById('data-export').addEventListener('click', (event) => {
             if (event.target.textContent === 'Export to PDF') {
-                window.location.href = '@Url.Action("Export", "Reports", new { format = "pdf" })';
+                window.location.href = '/Reports/Export?format=pdf';
             } else if (event.target.textContent === 'Export to Excel') {
-                window.location.href = '@Url.Action("Export", "Reports", new { format = "excel" })';
+                window.location.href = '/Reports/Export?format=excel';
             }
         });
     </script>
@@ -79,8 +75,13 @@
         <h1>Reporting & Analytics</h1>
         <nav>
             <ul>
-                <li><a href="@Url.Action("Index", "Dashboard")">Dashboard</a></li>
-                <li><a href="@Url.Action("Index", "GrantManagement")">Grant Management</a></li>
+                <li><a href="Index.html">Home</a></li>
+                <li><a href="Dashboard.html">Dashboard</a></li>
+                <li><a href="GrantManagement.html">Grant Management</a></li>
+                <li><a href="FinancialManagement.html">Financial Management</a></li>
+                <li><a href="UserManagement.html">User Management</a></li>
+                <li><a href="NotificationsAlerts.html">Notifications & Alerts</a></li>
+                <li><a href="SystemSettings.html">System Settings</a></li>
             </ul>
         </nav>
     </header>
@@ -89,10 +90,9 @@
         <section id="grant-performance">
             <h2>Grant Performance Reports</h2>
             <ul>
-                @foreach (var report in Model.Reports)
-                {
-                    <li><a href="@report.Link">@report.Title</a></li>
-                }
+                <!-- Sample reports that will be dynamically populated -->
+                <li><a href="/reports/sample1.pdf">Financial Overview Report</a></li>
+                <li><a href="/reports/sample2.pdf">Impact Assessment Report</a></li>
             </ul>
         </section>
 

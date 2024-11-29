@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dashboard - Second Harvest Northland Grants Management System</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <header>
+        <h1>Home</h1>
+        <nav>
+            <ul>
+                <li><a href="GrantApplications.html">Grant Applications</a></li>
+                <li><a href="GrantReview.html">Grant Review</a></li>
+                <li><a href="GrantManagement.html">Grant Management</a></li>
+                <li><a href="FinancialManagement.html">Financial Management</a></li>
+                <li><a href="ReportingAnalytics.html">Reporting & Analytics</a></li>
+                <li><a href="UserManagement.html">User Management</a></li>
+                <li><a href="NotificationsAlerts.html">Notifications & Alerts</a></li>
+                <li><a href="SystemSettings.html">System Settings</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="grant-summary">
+            <h2>Grant Summary</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Grant Title</th>
+                        <th>Funder</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Funding Pending</th>
+                        <th>Upcoming Deadlines</th>
+                        <th>Remaining Funds</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Replace the following rows with actual grant data -->
+                    <tr>
+                        <td>Grant Title Example</td>
+                        <td>Funder 1</td>
+                        <td>$500,000</td>
+                        <td>Active</td>
+                        <td>$100,000</td>
+                        <td>2024-12-31</td>
+                        <td>$50,000</td>
+                    </tr>
+                    <tr>
+                        <td>Grant Title 2</td>
+                        <td>Funder 2</td>
+                        <td>$750,000</td>
+                        <td>Completed</td>
+                        <td>$0</td>
+                        <td>2024-11-30</td>
+                        <td>$0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="key-indicators">
+            <h2>Key Tracking Indicators</h2>
+            <p><strong>Active Grants:</strong> 10</p>
+            <p><strong>Total Funds Allocated:</strong> $5,000,000</p>
+            <p><strong>Total Funds Spent:</strong> $2,000,000</p>
+            <p><strong>Upcoming Deadlines:</strong> 3</p>
+        </section>
+
+        <section id="notifications">
+            <h2>Notifications/Alerts</h2>
+            <p>You have 3 upcoming deadlines and 5 grants pending review.</p>
+        </section>
+
+        <section id="graphs">
+            <h2>Fund Distribution & Spending Trends</h2>
+            <div class="chart" id="fund-distribution-chart" style="width: 100%; height: 300px;"></div>
+            <div class="chart" id="spending-trends-chart" style="width: 100%; height: 300px;"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Second Harvest Northland</p>
+    </footer>
+
+    <script>
+        function renderCharts(data) {
+            const ctx1 = document.getElementById('fund-distribution-chart').getContext('2d');
+            const ctx2 = document.getElementById('spending-trends-chart').getContext('2d');
+
+            // Example of fund distribution chart
+            new Chart(ctx1, {
+                type: 'pie',
+                data: {
+                    labels: ['Label 1', 'Label 2', 'Label 3'],
+                    datasets: [{
+                        data: [100, 200, 300],
+                        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+                    }]
+                }
+            });
+
+            // Example of spending trends chart
+            new Chart(ctx2, {
+                type: 'line',
+                data: {
+                    labels: ['January', 'February', 'March'],
+                    datasets: [{
+                        label: 'Funds Spent',
+                        data: [50000, 100000, 150000],
+                        borderColor: '#36A2EB',
+                        fill: false
+                    }]
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const data = {
+                fundDistribution: {
+                    labels: ['Label 1', 'Label 2', 'Label 3'],
+                    values: [100, 200, 300]
+                },
+                spendingTrends: {
+                    labels: ['January', 'February', 'March'],
+                    values: [50000, 100000, 150000]
+                }
+            };
+
+            renderCharts(data);
+        });
+    </script>
+
+</body>
+</html>

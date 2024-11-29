@@ -7,34 +7,19 @@ namespace SHNgms.Models
 {
     public class Grant
 {
-    public int Id { get; set; }
+    public int Id { get; set; }                // Primary Key
+    public required string GrantTitle { get; set; }     // Title of the Grant
+    public required string Funder { get; set; }         // The Funder providing the Grant
+    public decimal AllocatedFunds { get; set; } // Total funds allocated for the grant
+    public decimal FundsSpent { get; set; }    // Funds that have been spent
+    public decimal FundsRemaining => AllocatedFunds - FundsSpent; // Remaining funds
+    public DateTime AwardedDate { get; set; }  // The date the grant was awarded
+    public DateTime CompletionDate { get; set; } // The expected completion date for the grant
 
-    [Required]  // Ensures GrantApplicationId is provided
-    public int GrantApplicationId { get; set; }
-
-    // Navigation property for related GrantApplication
-    public virtual Application? GrantApplication { get; set; }
-
-    [Range(0, double.MaxValue, ErrorMessage = "TotalFundsAllocated must be a positive value.")]
-    public decimal TotalFundsAllocated { get; set; }
-
-    [Range(0, double.MaxValue, ErrorMessage = "FundsSpent must be a positive value.")]
-    public decimal FundsSpent { get; set; }
-
-    // Status validation with a custom range
-    [Required]
-    [RegularExpression("^(On Track|Delayed|Completed)$", ErrorMessage = "Status must be one of: 'On Track', 'Delayed', or 'Completed'.")]
-    public string? Status { get; set; }
-
-    public DateTime AwardedDate { get; set; }
-
-    public DateTime CompletionDate { get; set; }
-
-    // Ensure Milestones is initialized
-    public List<Milestone> Milestones { get; set; } = new List<Milestone>();
-
-    // Add Title property here
-    public string? Title { get; set; }  // You can adjust the data type and validation as needed
+    // Relationships
+    public required ICollection<Application> Applications { get; set; } // Related applications
+    public required ICollection<Milestone> Milestones { get; set; }     // Related milestones
 }
+
 
 }

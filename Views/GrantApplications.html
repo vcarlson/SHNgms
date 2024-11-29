@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Grant Applications - Second Harvest Northland Grants Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Grant Applications</h1>
+        <nav>
+            <ul>
+                <li><a href="Index.html">Home</a></li>
+                <li><a href="GrantReview.html">Grant Review</a></li>
+                <li><a href="GrantManagement.html">Grant Management</a></li>
+                <li><a href="FinancialManagement.html">Financial Management</a></li>
+                <li><a href="ReportingAnalytics.html">Reporting & Analytics</a></li>
+                <li><a href="UserManagement.html">User Management</a></li>
+                <li><a href="NotificationsAlerts.html">Notifications & Alerts</a></li>
+                <li><a href="SystemSettings.html">System Settings</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="submit-application">
+            <h2>Submit a New Application</h2>
+            <form id="application-form" method="post" enctype="multipart/form-data" action="SubmitApplication.html">
+                <div class="form-group">
+                    <label for="title">Grant Title:</label>
+                    <input type="text" id="title" name="Title" required>
+                </div>
+                <div class="form-group">
+                    <label for="applicant">Applicant Name:</label>
+                    <input type="text" id="applicant" name="ApplicantName" required>
+                </div>
+                <div class="form-group">
+                    <label for="organization">Funder:</label>
+                    <input type="text" id="organization" name="Organization" required>
+                </div>
+                <div class="form-group">
+                    <label for="amount">Funding Amount Requested:</label>
+                    <input type="number" id="amount" name="FundingRequested" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Project Description:</label>
+                    <textarea id="description" name="ProjectDescription" rows="5" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="timeline">Project Timeline:</label>
+                    <input type="date" id="timeline" name="Timeline" required>
+                </div>
+                <div class="form-group">
+                    <label for="documents">Attach Documents:</label>
+                    <input type="file" id="documents" name="Documents" multiple>
+                </div>
+                <button type="submit">Submit Application</button>
+            </form>
+        </section>
+
+        <section id="application-status">
+            <h2>Your Applications</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Grant Title</th>
+                        <th>Status</th>
+                        <th>Submitted On</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Grant Example 1</td>
+                        <td>Pending</td>
+                        <td>12/01/2024</td>
+                        <td><a href="ViewDetails.html?id=1">View Details</a></td>
+                    </tr>
+                    <tr>
+                        <td>Grant Example 2</td>
+                        <td>Approved</td>
+                        <td>11/15/2024</td>
+                        <td><a href="ViewDetails.html?id=2">View Details</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Second Harvest Northland</p>
+    </footer>
+
+</body>
+</html>

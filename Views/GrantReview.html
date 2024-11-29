@@ -1,15 +1,11 @@
-@{
-    ViewData["Title"] = "Grant Review - Second Harvest Northland Grants Management System";
-}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>@ViewData["Title"]</title>
-    <link rel="stylesheet" href="~/css/style.css">
+    <title>Grant Review - Second Harvest Northland Grants Management System</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -17,9 +13,14 @@
         <h1>Grant Review</h1>
         <nav>
             <ul>
-                <li><a href="@Url.Action("Index", "Dashboard")">Dashboard</a></li>
-                <li><a href="@Url.Action("GrantApplications", "Grants")">Grant Applications</a></li>
-                <li><a href="@Url.Action("GrantManagement", "Grants")">Grant Management</a></li>
+                <li><a href="Index.html">Home</a></li>
+                <li><a href="GrantApplications.html">Grant Applications</a></li>
+                <li><a href="GrantManagement.html">Grant Management</a></li>
+                <li><a href="FinancialManagement.html">Financial Management</a></li>
+                <li><a href="ReportingAnalytics.html">Reporting & Analytics</a></li>
+                <li><a href="UserManagement.html">User Management</a></li>
+                <li><a href="NotificationsAlerts.html">Notifications & Alerts</a></li>
+                <li><a href="SystemSettings.html">System Settings</a></li>
             </ul>
         </nav>
     </header>
@@ -37,22 +38,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var application in Model.Applications)
-                    {
-                        <tr>
-                            <td>@application.Title</td>
-                            <td>@application.Applicant</td>
-                            <td>@application.Status</td>
-                            <td><a href="@Url.Action("Details", "Applications", new { id = application.Id })" class="view-details">View Details</a></td>
-                        </tr>
-                    }
+                    <tr>
+                        <td>Grant Application Example</td>
+                        <td>Applicant Name</td>
+                        <td>Pending</td>
+                        <td><a href="ApplicationDetails.html?id=1" class="view-details">View Details</a></td>
+                    </tr>
+                    <!-- Repeat for other applications -->
                 </tbody>
             </table>
         </section>
 
         <section id="review-details">
             <h2>Review Details</h2>
-            <form method="post" asp-action="SubmitReview" asp-controller="Applications">
+            <form method="post" action="SubmitReview.html">
                 <div class="form-group">
                     <label for="notes">Reviewer’s Notes:</label>
                     <textarea id="notes" name="Notes" rows="4" required></textarea>
@@ -90,30 +89,6 @@
     </footer>
 
     <script>
-        async function fetchApplications() {
-            try {
-                const response = await fetch('@Url.Action("GetApplications", "Applications")');
-                const applications = await response.json();
-                const applicationTableBody = document.querySelector('#submitted-applications tbody');
-
-                applications.forEach(application => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${application.title}</td>
-                        <td>${application.applicant}</td>
-                        <td>${application.status}</td>
-                        <td><a href="#" data-id="${application.id}" class="view-details">View Details</a></td>
-                    `;
-                    applicationTableBody.appendChild(row);
-                });
-            } catch (error) {
-                console.error('Failed to fetch applications:', error);
-                alert('Failed to load applications. Please try again later.');
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', fetchApplications);
-
         // Placeholder functions for button actions
         function requestRevisions() {
             alert('Requesting revisions...'); // Implement logic

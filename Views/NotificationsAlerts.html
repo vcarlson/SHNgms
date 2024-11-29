@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Notifications and Alerts - Second Harvest Northland Grants Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Notifications & Alerts</h1>
+        <nav>
+            <ul>
+                <li><a href="Index.html">Home</a></li>
+                <li><a href="GrantApplications.html">Grant Applications</a></li>
+                <li><a href="GrantReview.html">Grant Review</a></li>
+                <li><a href="GrantManagement.html">Grant Management</a></li>
+                <li><a href="FinancialManagement.html">Financial Management</a></li>
+                <li><a href="ReportingAnalytics.html">Reporting & Analytics</a></li>
+                <li><a href="UserManagement.html">User Management</a></li>
+                <li><a href="SystemSettings.html">System Settings</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="notification-preferences">
+            <h2>Notification Preferences</h2>
+            <form>
+                <div class="form-group">
+                    <label for="notification-type">Types of Notifications:</label>
+                    <div>
+                        <input type="checkbox" id="application-status" checked>
+                        <label for="application-status">Application Status Changes</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="reporting-deadlines" checked>
+                        <label for="reporting-deadlines">Upcoming Reporting Deadlines</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="fund-disbursement" checked>
+                        <label for="fund-disbursement">Fund Disbursement Alerts</label>
+                    </div>
+                </div>
+                <button type="submit">Save Preferences</button>
+            </form>
+        </section>
+
+        <section id="alert-history">
+            <h2>Alert History</h2>
+            <ul>
+                <li><strong>01/15/2024:</strong> Application status change alert.</li>
+                <li><strong>01/14/2024:</strong> Reporting deadline approaching alert.</li>
+                <li><strong>01/13/2024:</strong> Fund disbursement alert.</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Second Harvest Northland</p>
+    </footer>
+
+</body>
+</html>

@@ -5,22 +5,16 @@ using SHNgms.Models;  // For the Grant model (ensure this is the correct namespa
 namespace SHNgms.Models
 {
     public class Milestone
-    {
-        public int Id { get; set; }
+{
+    public int Id { get; set; }                // Primary Key
+    public required string Name { get; set; }           // Milestone name (e.g., "Phase 1")
+    public decimal Budget { get; set; }        // The budget allocated for this milestone
+    public decimal Spent { get; set; }         // Amount spent on the milestone
+    public DateTime TargetDate { get; set; }   // The target date for this milestone
 
-        [Required]  // Ensures GrantId is provided
-        public int GrantId { get; set; }
+    // Foreign Key Relationship
+    public int GrantId { get; set; }           // Foreign Key to Grant
+    public required Grant Grant { get; set; }           // Navigation property to Grant
+}
 
-        // Navigation property for related Grant
-        public virtual Grant Grant { get; set; }
-
-        [Required]  // Ensures Description is provided
-        [MaxLength(500, ErrorMessage = "Description cannot exceed 500 characters.")]
-        public string Description { get; set; }
-
-        [Required]  // Ensures DueDate is provided
-        public DateTime DueDate { get; set; }
-
-        public bool IsCompleted { get; set; }
-    }
 }

@@ -1,15 +1,11 @@
-@{
-    ViewData["Title"] = "Grant Management - Second Harvest Northland Grants Management System";
-}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>@ViewData["Title"]</title>
-    <link rel="stylesheet" href="~/css/style.css">
+    <title>Grant Management - Second Harvest Northland Grants Management System</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -17,9 +13,14 @@
         <h1>Grant Management</h1>
         <nav>
             <ul>
-                <li><a href="@Url.Action("Index", "Dashboard")">Dashboard</a></li>
-                <li><a href="@Url.Action("GrantApplications", "Grants")">Grant Applications</a></li>
-                <li><a href="@Url.Action("GrantReview", "Grants")">Grant Review</a></li>
+                <li><a href="Index.html">Home</a></li>
+                <li><a href="GrantApplications.html">Grant Applications</a></li>
+                <li><a href="GrantReview.html">Grant Review</a></li>
+                <li><a href="FinancialManagement.html">Financial Management</a></li>
+                <li><a href="ReportingAnalytics.html">Reporting & Analytics</a></li>
+                <li><a href="UserManagement.html">User Management</a></li>
+                <li><a href="NotificationsAlerts.html">Notifications & Alerts</a></li>
+                <li><a href="SystemSettings.html">System Settings</a></li>
             </ul>
         </nav>
     </header>
@@ -31,21 +32,28 @@
                 <thead>
                     <tr>
                         <th>Grant Title</th>
+                        <th>Funder</th>
                         <th>Progress</th>
                         <th>Budget Spent</th>
-                        <th>Upcoming Milestones</th>
+                        <th>Upcoming Deadlines</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var grant in Model.Grants)
-                    {
-                        <tr>
-                            <td>@grant.Title</td>
-                            <td>@grant.Progress% Complete</td>
-                            <td>@grant.BudgetSpent.ToString("C")</td>
-                            <td>@string.Join(", ", grant.UpcomingMilestones)</td>
-                        </tr>
-                    }
+                    <!-- Sample Static Data: You can later replace this with dynamic data or JavaScript -->
+                    <tr>
+                        <td>Grant Example 1</td>
+                        <td>Funder 1</td>
+                        <td>45% Complete</td>
+                        <td>$5,000</td>
+                        <td>Deadline 1, Deadline 2</td>
+                    </tr>
+                    <tr>
+                        <td>Grant Example 2</td>
+                        <td>Funder 2</td>
+                        <td>75% Complete</td>
+                        <td>$10,000</td>
+                        <td>Milestone 3, Milestone 4</td>
+                    </tr>
                 </tbody>
             </table>
         </section>
@@ -59,22 +67,20 @@
         <section id="documents">
             <h2>Documents & Reports</h2>
             <ul>
-                @foreach (var document in Model.Documents)
-                {
-                    <li><a href="@document.Url" target="_blank">@document.Name - @document.Date.ToString("MM/dd/yyyy")</a></li>
-                }
+                <!-- Sample Static Documents: You can replace these with dynamic links -->
+                <li><a href="document1.pdf" target="_blank">Document 1 - 12/15/2024</a></li>
+                <li><a href="document2.pdf" target="_blank">Document 2 - 01/20/2025</a></li>
             </ul>
         </section>
 
         <section id="communication-log">
             <h2>Communication Log</h2>
             <ul class="communication-log">
-                @foreach (var log in Model.Communications)
-                {
-                    <li><strong>@log.Date.ToString("MM/dd/yyyy"):</strong> @log.Message</li>
-                }
+                <!-- Sample Static Communication Log: You can replace these with dynamic logs -->
+                <li><strong>12/15/2024:</strong> Initial communication log entry.</li>
+                <li><strong>01/20/2025:</strong> Follow-up communication log entry.</li>
             </ul>
-            <form id="communication-form" method="post" asp-action="LogCommunication" asp-controller="Grants">
+            <form id="communication-form">
                 <input type="date" id="communication-date" name="Date" required>
                 <input type="text" id="communication-message" name="Message" placeholder="Enter communication details" required>
                 <button type="submit">Add Communication</button>

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>User Management - Second Harvest Northland Grants Management System</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="style.css">
     <script>
         document.addEventListener('DOMContentLoaded', fetchUsers);
 
@@ -51,7 +51,7 @@
 
                 users.forEach(user => {
                     const row = document.createElement('tr');
-                    row.innerHTML = `
+                    row.innerHTML = ` 
                         <td>${user.username}</td>
                         <td>${user.email}</td>
                         <td>${user.role}</td>
@@ -99,8 +99,14 @@
         <h1>User Management</h1>
         <nav>
             <ul>
-                <li><a href="index.html">Dashboard</a></li>
-                <li><a href="database-management.html">Database Management</a></li>
+                <li><a href="Index.html">Home</a></li>
+                <li><a href="GrantApplications.html">Grant Applications</a></li>
+                <li><a href="GrantReview.html">Grant Review</a></li>
+                <li><a href="GrantManagement.html">Grant Management</a></li>
+                <li><a href="FinancialManagement.html">Financial Management</a></li>
+                <li><a href="ReportingAnalytics.html">Reporting & Analytics</a></li>
+                <li><a href="NotificationsAlerts.html">Notifications & Alerts</a></li>
+                <li><a href="SystemSettings.html">System Settings</a></li>
             </ul>
         </nav>
     </header>

@@ -1,15 +1,11 @@
-@{
-    ViewData["Title"] = "Financial Management";
-}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>@ViewData["Title"] - SHNgms</title>
-    <link rel="stylesheet" href="~/css/style.css">
+    <title>Financial Management - SHNgms</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -17,9 +13,14 @@
         <h1>Financial Management</h1>
         <nav>
             <ul>
-                <li><a href="@Url.Action("Index", "Dashboard")">Dashboard</a></li>
-                <li><a href="@Url.Action("Index", "GrantManagement")">Grant Management</a></li>
-                <!-- Add other navigation links here -->
+                <li><a href="Index.html">Home</a></li>
+                <li><a href="GrantApplications.html">Grant Applications</a></li>
+                <li><a href="GrantReview.html">Grant Review</a></li>
+                <li><a href="GrantManagement.html">Grant Management</a></li>
+                <li><a href="ReportingAnalytics.html">Reporting & Analytics</a></li>
+                <li><a href="UserManagement.html">User Management</a></li>
+                <li><a href="NotificationsAlerts.html">Notifications & Alerts</a></li>
+                <li><a href="SystemSettings.html">System Settings</a></li>
             </ul>
         </nav>
     </header>
@@ -31,13 +32,28 @@
                 <thead>
                     <tr>
                         <th>Grant Title</th>
+                        <th>Funder</th>
                         <th>Allocated Funds</th>
                         <th>Spent</th>
                         <th>Remaining</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Dynamic data will be populated here -->
+                    <!-- Static example data with placeholder for Funder -->
+                    <tr>
+                        <td>Grant 1</td>
+                        <td>Funder 1</td>
+                        <td>$100,000</td>
+                        <td>$50,000</td>
+                        <td>$50,000</td>
+                    </tr>
+                    <tr>
+                        <td>Grant 2</td>
+                        <td>Funder 2</td>
+                        <td>$150,000</td>
+                        <td>$75,000</td>
+                        <td>$75,000</td>
+                    </tr>
                 </tbody>
             </table>
         </section>
@@ -53,7 +69,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Dynamic data will be populated here -->
+                    <!-- Static example data -->
+                    <tr>
+                        <td>12/01/2024</td>
+                        <td>Office Supplies</td>
+                        <td>$200</td>
+                    </tr>
+                    <tr>
+                        <td>12/02/2024</td>
+                        <td>Event Catering</td>
+                        <td>$500</td>
+                    </tr>
                 </tbody>
             </table>
         </section>
@@ -79,6 +105,17 @@
                 <button type="submit">Add Expense</button>
             </form>
         </section>
+
+        <section id="add-funder">
+            <h2>Add New Funder</h2>
+            <form id="funder-form">
+                <label for="funder-name">Funder Name:</label>
+                <input type="text" id="funder-name" name="funder-name" placeholder="Enter funder name" required>
+
+                <button type="submit">Add Funder</button>
+            </form>
+        </section>
+
     </main>
 
     <footer>
@@ -86,15 +123,18 @@
     </footer>
 
     <script>
+        // Example function to simulate fetching fund distribution data
         async function fetchFundDistribution() {
-            const response = await fetch('@Url.Action("GetFundDistribution", "FinancialManagement")');
-            const fundData = await response.json();
+            const fundData = [
+                { grantTitle: 'Grant 3', funder: 'Funder 3', allocatedFunds: '$100,000', spent: '$50,000', remaining: '$50,000' },
+                { grantTitle: 'Grant 4', funder: 'Funder 4', allocatedFunds: '$150,000', spent: '$75,000', remaining: '$75,000' }
+            ];
             const fundTableBody = document.querySelector('#fund-distribution tbody');
-
             fundData.forEach(fund => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${fund.grantTitle}</td>
+                    <td>${fund.funder}</td>
                     <td>${fund.allocatedFunds}</td>
                     <td>${fund.spent}</td>
                     <td>${fund.remaining}</td>
@@ -103,11 +143,13 @@
             });
         }
 
+        // Example function to simulate fetching expense tracking data
         async function fetchExpenseTracking() {
-            const response = await fetch('@Url.Action("GetExpenses", "FinancialManagement")');
-            const expenses = await response.json();
+            const expenses = [
+                { date: '2024-12-01', description: 'Office Supplies', amount: '$200' },
+                { date: '2024-12-02', description: 'Event Catering', amount: '$500' }
+            ];
             const expenseTableBody = document.querySelector('#expense-tracking tbody');
-
             expenses.forEach(expense => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
@@ -119,6 +161,7 @@
             });
         }
 
+        // Simulate adding a new expense (static example)
         document.getElementById('expense-form').addEventListener('submit', async (event) => {
             event.preventDefault();
 
@@ -126,20 +169,24 @@
             const description = document.getElementById('expense-description').value;
             const amount = document.getElementById('expense-amount').value;
 
-            const response = await fetch('@Url.Action("AddExpense", "FinancialManagement")', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ date, description, amount })
-            });
+            // Simulate an expense being added
+            alert('Expense added successfully!');
 
-            if (response.ok) {
-                fetchExpenseTracking(); // Refresh the expense tracking table
-                alert('Expense added successfully!');
-            } else {
-                alert('Failed to add expense.');
-            }
+            // Refresh the expense tracking table with new data (in static example, it's hardcoded)
+            fetchExpenseTracking();
+        });
+
+        // Simulate adding a new funder (static example)
+        document.getElementById('funder-form').addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const funderName = document.getElementById('funder-name').value;
+
+            // Simulate a funder being added
+            alert('Funder added successfully!');
+
+            // Refresh the fund distribution table with new data (in static example, it's hardcoded)
+            fetchFundDistribution();
         });
 
         document.addEventListener('DOMContentLoaded', () => {

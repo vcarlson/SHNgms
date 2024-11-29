@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\vince\\SHNgms\\SHNgms.csproj": {}
+    "C:\\Users\\vince\\SHNgms-2\\SHNgms.csproj": {}
   },
   "projects": {
-    "C:\\Users\\vince\\SHNgms\\SHNgms.csproj": {
+    "C:\\Users\\vince\\SHNgms-2\\SHNgms.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\vince\\SHNgms\\SHNgms.csproj",
+        "projectUniqueName": "C:\\Users\\vince\\SHNgms-2\\SHNgms.csproj",
         "projectName": "SHNgms",
-        "projectPath": "C:\\Users\\vince\\SHNgms\\SHNgms.csproj",
+        "projectPath": "C:\\Users\\vince\\SHNgms-2\\SHNgms.csproj",
         "packagesPath": "C:\\Users\\vince\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\vince\\SHNgms\\obj\\",
+        "outputPath": "C:\\Users\\vince\\SHNgms-2\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
